@@ -9,7 +9,7 @@ namespace WebApplication1_MVC_.Entitys
         [Key]
         public int CourseId { get; set; }
         [Required, MaxLength(30)]
-        public string Title { get; set; }
+        public string CourseTitle { get; set; }
         [Required, MaxLength(300)]
         public string Description { get; set; }
         [Required]
