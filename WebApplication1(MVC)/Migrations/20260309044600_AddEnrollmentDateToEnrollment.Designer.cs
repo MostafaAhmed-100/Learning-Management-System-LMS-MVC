@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1_MVC_;
 
@@ -11,9 +12,11 @@ using WebApplication1_MVC_;
 namespace WebApplication1_MVC_.Migrations
 {
     [DbContext(typeof(APPDbContext))]
-    partial class APPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260309044600_AddEnrollmentDateToEnrollment")]
+    partial class AddEnrollmentDateToEnrollment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

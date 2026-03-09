@@ -11,5 +11,7 @@ namespace WebApplication1_MVC_.Entitys
         [Required , ForeignKey(nameof(StudentId))]
         public int StudentId { get; set; }
         public Student Student { get; set; }
+
+        public DateTime EnrollmentDate { get; set; }
     }
 }
