@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using WebApplication1_MVC_.Repositories.Implementation;
+using WebApplication1_MVC_.Repositories.Interface;
 
 namespace WebApplication1_MVC_
 {
@@ -14,6 +16,10 @@ namespace WebApplication1_MVC_
             builder.Services.AddDbContext<APPDbContext>(options =>
                     options.UseSqlServer(connectionString));
             var app = builder.Build();
+            builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+            builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+            builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
+            builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
