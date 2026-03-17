@@ -11,10 +11,8 @@ namespace WebApplication1_MVC_.DTOs.Request_DTOs
         [EmailAddress]
         public string StudentEmail { get; set; }
         [Required]
-        public DateTime DateofBirth { get; set; }
+        public int StudentAge { get; set; }
         [Required,MinLength(8)]
-        public string Password { get; set; }
-        
-        public char Gender { get; set; }
+        public string StudentPassword { get; set; }
     }
 }

@@ -59,7 +59,9 @@ namespace WebApplication1_MVC_.Repositories.Implementation
             GetStudntById.StudentAge = student.StudentAge;
             GetStudntById.StudentName = student.StudentName;
             GetStudntById.Student_Email = student.Student_Email;
+            GetStudntById.Student_Password = student.Student_Password;
             _context.enrollments.RemoveRange(GetStudntById.enrollments);
+            
             if (student.enrollments != null)
             {
                 foreach (var Enrolments in student.enrollments)

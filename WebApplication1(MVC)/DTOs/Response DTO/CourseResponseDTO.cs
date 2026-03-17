@@ -1,11 +1,11 @@
 ﻿namespace WebApplication1_MVC_.DTOs
 {
-    public class CourseDTOs
+    public class CourseResponseDTO
     {
         public int CourseId { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public float Price { get; set; }
+        public string CourseTitle { get; set; }
+        public string CourseDescription { get; set; }
+        public float CoursePrice { get; set; }
         public DateTime CreatedDate { get; set; }
         public string InstractorName { get; set; }
     }
