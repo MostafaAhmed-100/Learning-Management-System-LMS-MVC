@@ -3,7 +3,7 @@ using WebApplication1_MVC_.Entitys;
 
 namespace WebApplication1_MVC_.DTOs
 {
-    public class StudentDTOs
+    public class StudentResponseDTO
     {
         public string StudentName { get; set; }
 

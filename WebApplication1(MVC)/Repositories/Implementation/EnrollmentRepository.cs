@@ -20,21 +20,13 @@ namespace WebApplication1_MVC_.Repositories.Implementation
                 .ToListAsync();
             return GetAll;
         }
-
-        public async Task<Enrollment?> GetByStudentAndCourseIdAsync(int StudentId, int CourseId)
+        public async Task<Enrollment?> AddAsync(Enrollment enrollment)
         {
-            var GetById = await _context.enrollments
-                .FirstOrDefaultAsync(E => E.StudentId == StudentId
-                && E.CourseId == CourseId);
-            if (GetById == null)
+            var IsEnrolled = await _context.enrollments.AnyAsync(c => c.StudentId == enrollment.StudentId && c.CourseId == enrollment.CourseId);
+            if (IsEnrolled == true)
             {
                 return null;
             }
-            return GetById;
-
-        }
-        public async Task<Enrollment> AddAsync(Enrollment enrollment)
-        {
             var AddEnrollment = await _context.enrollments.AddAsync(enrollment);
             await _context.SaveChangesAsync();
             return AddEnrollment.Entity;
@@ -46,14 +38,11 @@ namespace WebApplication1_MVC_.Repositories.Implementation
                 && E.CourseId == CourseId);
             if (GetById == null)
             {
-                return null;
+                return false;
             }
             _context.enrollments.Remove(GetById);
             await _context.SaveChangesAsync();
             return true;
         }
-
-
-
     }
 }
