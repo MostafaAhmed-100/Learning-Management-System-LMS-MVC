@@ -13,7 +13,7 @@ namespace WebApplication1_MVC_.Entitys
         public int StudentAge { get; set; }
         [Required, MaxLength(355),EmailAddress]
         public string Student_Email { get; set; }
-        [Required, MinLength(3), MaxLength(30)]
+        [Required, MinLength(3)]
         public  string Student_Password { get; set; }
         public ICollection<Enrollment> enrollments { get; set; }
     }
