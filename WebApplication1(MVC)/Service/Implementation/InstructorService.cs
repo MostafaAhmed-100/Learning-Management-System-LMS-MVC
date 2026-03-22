@@ -78,8 +78,12 @@ namespace WebApplication1_MVC_.Service.Implementation
                 InstructorEmail = instructor_requestDTO.InstructorEmail,
                 InstructorPhone = instructor_requestDTO.InstructorPhone,
                 InstructorBio = instructor_requestDTO.InstructorBio,
-                InstructorPassword = _passwordHasher.HashPassword(instructor_requestDTO.InstructorName, instructor_requestDTO.InstructorPassword),
-            };
+             };
+            if (!string.IsNullOrEmpty(instructor_requestDTO.InstructorPassword) && instructor_requestDTO.InstructorPassword != "****************")
+            {
+                string StrId = Convert.ToString(id);
+                Instractor.InstructorPassword = _passwordHasher.HashPassword(StrId, instructor_requestDTO.InstructorPassword);
+            }
             var UpdateInstructor = await _instructorRepository.UpdateById(id ,Instractor);
             if (UpdateInstructor == null)
             {

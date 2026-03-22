@@ -39,10 +39,12 @@ namespace WebApplication1_MVC_.Repositories.Implementation
             var existingInstructor = await _context.instructors.FirstOrDefaultAsync(i => i.InstructorId == Id);
 
             if (existingInstructor == null) return null;
+
             existingInstructor.InstructorName = instructor.InstructorName;
             existingInstructor.InstructorEmail = instructor.InstructorEmail;
             existingInstructor.InstructorPhone = instructor.InstructorPhone;
             existingInstructor.InstructorBio = instructor.InstructorBio;
+            existingInstructor.InstructorPassword = instructor.InstructorPassword;
 
             await _context.SaveChangesAsync();
             return existingInstructor;

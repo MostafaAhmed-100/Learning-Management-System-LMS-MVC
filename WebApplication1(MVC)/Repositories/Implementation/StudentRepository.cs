@@ -50,30 +50,24 @@ namespace WebApplication1_MVC_.Repositories.Implementation
         {
             var GetStudntById = await _context.students
                 .Include(e => e.enrollments)
-                .ThenInclude(c => c.Course)
                 .FirstOrDefaultAsync(s => s.StudentId == id);
-            if (GetStudntById == null)
-            {
-                return null;
-            }
+
+            if (GetStudntById == null) return null;
+
             GetStudntById.StudentAge = student.StudentAge;
             GetStudntById.StudentName = student.StudentName;
             GetStudntById.Student_Email = student.Student_Email;
             GetStudntById.Student_Password = student.Student_Password;
             _context.enrollments.RemoveRange(GetStudntById.enrollments);
-            
+
             if (student.enrollments != null)
             {
-                foreach (var Enrolments in student.enrollments)
+                var newEnrollments = student.enrollments.Select(e => new Enrollment
                 {
-                    GetStudntById.enrollments.Add(new Enrollment
-                    {
-                        StudentId = id,
-                        CourseId = Enrolments.CourseId,
-                        EnrollmentDate = DateTime.Now,
-                    });
-                }
-                return GetStudntById;
+                    StudentId = id,
+                    CourseId = e.CourseId,
+                    EnrollmentDate = DateTime.Now
+                }).ToList();
             }
             await _context.SaveChangesAsync();
             return GetStudntById;

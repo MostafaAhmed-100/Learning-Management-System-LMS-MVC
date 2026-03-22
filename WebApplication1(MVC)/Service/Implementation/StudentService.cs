@@ -4,6 +4,7 @@ using WebApplication1_MVC_.DTOs.Request_DTOs;
 using WebApplication1_MVC_.Entitys;
 using WebApplication1_MVC_.Repositories.Interface;
 using WebApplication1_MVC_.Service.Interfaces;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebApplication1_MVC_.Service.Implementation
 {
@@ -63,33 +64,28 @@ namespace WebApplication1_MVC_.Service.Implementation
             };
             return student_responseDTO;
         }
-
-
-
         public async Task<StudentResponseDTO?> UpdateStudentAsync(int id, StudentRequestDto student_requestDto)
         {
-            var Student = new Student
+
+            var existingStudent = await _studentRepository.GetByIdAsync(id);
+            if (existingStudent == null) return null;
+            existingStudent.StudentId = id;
+            existingStudent.StudentName = student_requestDto.StudentName;
+            existingStudent.Student_Email = student_requestDto.StudentEmail;
+            existingStudent.StudentAge = student_requestDto.StudentAge;
+            if (!string.IsNullOrEmpty(student_requestDto.StudentPassword) && student_requestDto.StudentPassword != "****************")
             {
-                StudentId = id,
-                StudentName = student_requestDto.StudentName,
-                Student_Email = student_requestDto.StudentEmail,
-                StudentAge = student_requestDto.StudentAge,
-               
-            };
-            if (!string.IsNullOrEmpty(student_requestDto.StudentPassword))
-            {
-                Student.Student_Password = _passwordHasher?.HashPassword(student_requestDto.StudentName, student_requestDto.StudentPassword);
+                string StrId = Convert.ToString(id);
+                existingStudent.Student_Password = _passwordHasher.HashPassword(StrId, student_requestDto.StudentPassword);
             }
-            var Student_Update = await _studentRepository.UpdateAsync(id, Student);
-            if (Student_Update == null)
-                return null;
-            var student_responseDTO = new StudentResponseDTO
+            var Student_Update = await _studentRepository.UpdateAsync(id, existingStudent);
+
+            return new StudentResponseDTO
             {
                 StudentName = Student_Update.StudentName,
                 StudentAge = Student_Update.StudentAge,
-                Student_Email = Student_Update.Student_Email,
+                Student_Email = Student_Update.Student_Email
             };
-            return student_responseDTO;
         }
         public async Task<bool> DeleteStudentAsync(int id)
         {

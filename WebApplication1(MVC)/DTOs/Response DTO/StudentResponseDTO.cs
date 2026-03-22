@@ -11,6 +11,7 @@ namespace WebApplication1_MVC_.DTOs
         public int StudentAge { get; set; }
         [EmailAddress]
         public string Student_Email { get; set; }
+        public string Student_Password { get; set; }
         public List<string> Enrollments { get; set; }
     }
 }

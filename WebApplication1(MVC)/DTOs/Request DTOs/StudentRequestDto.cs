@@ -12,7 +12,7 @@ namespace WebApplication1_MVC_.DTOs.Request_DTOs
         public string StudentEmail { get; set; }
         [Required]
         public int StudentAge { get; set; }
-        [Required,MinLength(8)]
-        public string StudentPassword { get; set; }
+        [MinLength(8)]
+        public string? StudentPassword { get; set; }
     }
 }

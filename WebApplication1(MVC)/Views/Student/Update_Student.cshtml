@@ -1,0 +1,19 @@
+﻿@model StudentRequestDto
+<div>
+    <form asp-action="Update_Student" method="post">
+        <input type="hidden" name="id" value="@ViewContext.RouteData.Values["id"]" />
+        <label asp-for="StudentName"></label>
+        <input asp-for="StudentName" class="form-control" />
+        <span asp-validation-for="StudentName" class="text-danger"></span>
+        <label asp-for="StudentEmail"></label>
+        <input asp-for="StudentEmail" class="form-control" />
+        <span asp-validation-for="StudentEmail" class="text-danger"></span>
+        <label asp-for="StudentAge"></label>
+        <input asp-for="StudentAge" class="form-control" />
+        <span asp-validation-for="StudentAge" class="text-danger"></span>
+        <label asp-for="StudentPassword"></label>
+        <input asp-for="StudentPassword" class="form-control"/>
+        <span asp-validation-for="StudentPassword" class="text-danger"></span>
+        <input type="submit" value="Update" class="btn btn-primary" />
+    </form>
+</div>

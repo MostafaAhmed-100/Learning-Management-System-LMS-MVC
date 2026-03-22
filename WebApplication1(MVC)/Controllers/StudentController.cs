@@ -14,25 +14,30 @@ namespace WebApplication1_MVC_.Controllers
             var students = await _studentService.GetAllStudentsAsync();
             return View(students);
         }
-        // بيفتح الصفحة ببيانات الطالب القديمة
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Update_Student(int id)
         {
             var student = await _studentService.GetStudentByIdAsync(id);
             if (student == null) return NotFound();
-            return View(student);
-        }
 
-        //بيستقبل البيانات المتعدلة ويحفظها
-        [HttpPost]
-        public async Task<IActionResult> Edit(int id, StudentRequestDto studentDto)
+            var updateModel = new StudentRequestDto
+            {
+                StudentName = student.StudentName,
+                StudentEmail = student.Student_Email,
+                StudentAge = student.StudentAge,
+                StudentPassword = "****************"
+            };
+            return View(updateModel);
+        }
+       [HttpPost]
+        public async Task<IActionResult> Update_Student(int id, StudentRequestDto studentDto)
         {
             if (!ModelState.IsValid) return View(studentDto);
 
             var result = await _studentService.UpdateStudentAsync(id, studentDto);
             if (result == null) return NotFound();
 
-            return RedirectToAction(nameof(All_Students)); // ارجع للجدول بعد التعديل
+            return RedirectToAction(nameof(All_Students));
         }
         [HttpGet]
         public IActionResult Add_Student()
