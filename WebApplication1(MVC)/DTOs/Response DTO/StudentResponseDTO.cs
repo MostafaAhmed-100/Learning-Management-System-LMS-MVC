@@ -5,6 +5,7 @@ namespace WebApplication1_MVC_.DTOs
 {
     public class StudentResponseDTO
     {
+        public int StudentId { get; set; }
         public string StudentName { get; set; }
 
         public int StudentAge { get; set; }

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<WebApplication1_MVC_.DTOs.StudentResponseDTO>
+@{
+    ViewData["Title"] = "Students List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="mb-4">All Students</h1>
+<div>
+    <a class="btn btn-primary" asp-action="Add_Student">Add a new Students</a>
+</div>
+
+<table class="table table-striped table-hover border">
+    <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.StudentId</td>
+                <td>@item.StudentName</td>
+                <td>@item.StudentAge</td>
+                <td>@item.Student_Email</td>
+                <td class="text-center">
+                <a class="btn btn-info text-white" asp-action="Get_by_id" asp-controller="Student" asp-route-id="@item.StudentId">Info</a>
+                <a class="btn btn-primary" href="#">Edit</a>
+                <a class="btn btn-danger" href="#">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

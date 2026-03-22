@@ -23,6 +23,7 @@ namespace WebApplication1_MVC_.Service.Implementation
             var All_Students = await _studentRepository.GetAllAsync();
             return All_Students.Select(x => new StudentResponseDTO
             {
+                StudentId = x.StudentId,
                 StudentName = x.StudentName,
                 Student_Email = x.Student_Email,
                 StudentAge = x.StudentAge,
@@ -37,6 +38,7 @@ namespace WebApplication1_MVC_.Service.Implementation
                 return null;
             return new StudentResponseDTO
             {
+                StudentId = Stu_by_Id.StudentId,
                 StudentName = Stu_by_Id.StudentName,
                 StudentAge = Stu_by_Id.StudentAge,
                 Student_Email = Stu_by_Id.Student_Email,
