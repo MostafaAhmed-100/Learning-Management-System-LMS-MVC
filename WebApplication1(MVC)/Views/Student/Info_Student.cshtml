@@ -1,0 +1,38 @@
+﻿@model WebApplication1_MVC_.DTOs.StudentResponseDTO
+<div  class="container">
+    <div class="card-header">
+        <h1>info for Student : @Model.StudentName </h1>
+    </div>
+    <div class="card-body">
+        <h3 class="text-primary"<strong>Personal Information</strong></h3>
+        <p><strong>Id : @Model.StudentId</strong></p>
+        <p><strong>Full Name : @Model.StudentName</strong></p>
+        <p><strong>Age : @Model.StudentAge</strong></p>
+        <p><strong>Email : @Model.Student_Email</strong></p>
+        <div>   
+            <h5><strong>Enrolled Courses</strong></h5>
+                    @if (Model.Enrollments != null && Model.Enrollments.Any())
+                    {
+                        <div class="list-group">
+                            @foreach (var course in Model.Enrollments)
+                            {
+                                <div class="align-items-center">
+                                    @course
+                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                    <div class="alert alert-warning">
+                        No enrollments found for this student.
+                    </div>
+                    }
+            <div class="card-footer bg-light text-end">
+                <a asp-action="All_Students" class="btn btn-secondary px-4">Back to List</a>
+                <a asp-action="Update_Student" asp-route-id="@Model.StudentId" class="btn btn-primary px-4">Edit Info</a>
+            </div>
+        </div>
+    </div> 
+</div>

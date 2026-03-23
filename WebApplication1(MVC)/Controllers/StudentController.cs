@@ -15,6 +15,13 @@ namespace WebApplication1_MVC_.Controllers
             return View(students);
         }
         [HttpGet]
+        public async Task<IActionResult> Info_Student(int id)
+        {
+            var student = await _studentService.GetStudentByIdAsync(id);
+            if (student == null) return NotFound();
+            return View(student);
+        }
+        [HttpGet]
         public async Task<IActionResult> Update_Student(int id)
         {
             var student = await _studentService.GetStudentByIdAsync(id);
@@ -26,8 +33,14 @@ namespace WebApplication1_MVC_.Controllers
                 StudentEmail = student.Student_Email,
                 StudentAge = student.StudentAge,
                 StudentPassword = "****************"
+                
             };
             return View(updateModel);
+        }
+        [HttpGet]
+        public IActionResult Add_Student()
+        {
+           return View();
         }
        [HttpPost]
         public async Task<IActionResult> Update_Student(int id, StudentRequestDto studentDto)
@@ -39,11 +52,6 @@ namespace WebApplication1_MVC_.Controllers
 
             return RedirectToAction(nameof(All_Students));
         }
-        [HttpGet]
-        public IActionResult Add_Student()
-        {
-           return View();
-        }
 
         [HttpPost]
         public async Task<IActionResult> Add_Student(StudentRequestDto studentDto)
@@ -54,8 +62,17 @@ namespace WebApplication1_MVC_.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        [HttpGet]
+        public async Task<IActionResult> Delete_Student(int id)
+        {
+            var student = await _studentService.GetStudentByIdAsync(id);
+            if (student == null) return NotFound();
+
+            return View(student); 
+        }
+
+        [HttpPost, ActionName("Delete_Student")]
+        public async Task<IActionResult> Delete_Confirmed(int id)
         {
             await _studentService.DeleteStudentAsync(id);
             return RedirectToAction(nameof(All_Students));

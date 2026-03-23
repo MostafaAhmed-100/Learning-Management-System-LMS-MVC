@@ -28,9 +28,9 @@
                 <td>@item.StudentAge</td>
                 <td>@item.Student_Email</td>
                 <td class="text-center">
-                <a class="btn btn-info text-white" asp-action="Get_by_id" asp-controller="Student" asp-route-id="@item.StudentId">Info</a>
+                    <a class="btn btn-info text-white" asp-action="Info_Student" asp-controller="Student" asp-route-id="@item.StudentId">Info</a>
                     <a class="btn btn-primary" asp-action="Update_Student" asp-controller="Student" asp-route-id="@item.StudentId">Edit</a>
-                <a class="btn btn-danger" href="#">Delete</a>
+                    <a class="btn btn-danger" asp-action="Delete_Student" asp-controller="Student" asp-route-id="@item.StudentId">Delete</a>
                 </td>
             </tr>
         }
