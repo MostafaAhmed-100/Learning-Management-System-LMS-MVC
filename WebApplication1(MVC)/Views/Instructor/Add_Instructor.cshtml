@@ -1,0 +1,16 @@
+﻿@model InstructorRequestDTO
+<div>
+    <form asp-action="Add_InstructorAdd_Instructor" method="post">
+        <label>Name</label>
+        <input asp-for="InstructorName" class="form-control" />
+        <label>Email</label>
+        <input asp-for="InstructorEmail" class="form-control" />
+        <label>Bio</label>
+        <input asp-for="InstructorBio" class="form-control" />
+        <label>Phone</label>
+        <input asp-for="InstructorPhone" class="form-control" />
+        <label>Password</label>
+        <input asp-for="InstructorPassword" class="form-control" />
+        <input type="submit" value="Add" class="btn btn-primary" />
+    </form>
+</div>

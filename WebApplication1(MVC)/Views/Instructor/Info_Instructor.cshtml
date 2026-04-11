@@ -1,0 +1,39 @@
+﻿@model WebApplication1_MVC_.DTOs.InstructorResponseDTO
+<div class="container">
+    <div class="card-header">
+        <h1>info for Student : @Model.InstructorName </h1>
+    </div>
+    <div class="card-body">
+        <h3 class="text-primary"<strong>Personal Information</strong></h3>
+        <p><strong>Id : @Model.InstracrorId </strong></p>
+        <p><strong>Full Name : @Model.InstructorName</strong></p>W
+        <p><strong>Email : @Model.InstructorEmail</strong></p>
+        <p><strong>Phone : @Model.InstructorPhone</strong></p>
+        <p><strong>Bio : @Model.InstructorBio</strong></p>
+        <div>
+            <h5><strong>He Is the Instrutor for Courses</strong></h5>
+            @if (@Model.Coures != null && @Model.Coures.Any())
+            {
+                <div class="list-group">
+                    @foreach (var course in @Model.Coures)
+                    {
+                        <div class="align-items-center">
+                            @course
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning">
+                    He hasnt instruted any Course
+                </div>
+            }
+            <div class="card-footer bg-light text-end">
+                <a asp-action="Info_Instractor" class="btn btn-secondary px-4">Back to List</a>
+                <a asp-action="Update_Instractor" asp-route-id="@Model.InstracrorId" class="btn btn-primary px-4">Edit Info</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿@model InstructorRequestDTO
+<div>
+    <form asp-action="Update_Instructor" method="post">
+        <input type="hidden" name="id" value="@ViewContext.RouteData.Values["id"]" />
+        <label asp-for="InstructorName"></label>
+        <input asp-for="InstructorName" class="form-control" />
+        <span asp-validation-for="InstructorName" class="text-danger"></span>
+        <label asp-for="InstructorEmail"></label>
+        <input asp-for="InstructorEmail" class="form-control" />
+        <span asp-validation-for="InstructorEmail" class="text-danger"></span>
+        <label asp-for="InstructorPhone"></label>
+        <input asp-for="InstructorPhone" class="form-control" />
+        <span asp-validation-for="InstructorPhone" class="text-danger"></span>
+        <label asp-for="InstructorBio"></label>
+        <input asp-for="InstructorBio" class="form-control" />
+        <span asp-validation-for="InstructorBio" class="text-danger"></span>
+        <label asp-for="InstructorPassword"></label>
+        <input asp-for="InstructorPassword" class="form-control" />
+        <span asp-validation-for="InstructorPassword" class="text-danger"></span>
+        <input type="submit" value="Update" class="btn btn-primary" />
+    </form>
+</div>

@@ -23,11 +23,11 @@ namespace WebApplication1_MVC_.Service.Implementation
             var AllInstructors = await _instructorRepository.GetAllAsync();
             return AllInstructors.Select(x => new InstructorResponseDTO
             {
+                InstracrorId = x.InstructorId,
                 InstructorName = x.InstructorName,
                 InstructorEmail = x.InstructorEmail,
                 InstructorPhone = x.InstructorPhone,
                 InstructorBio = x.InstructorBio,
-                CourseCount = x.courses?.Count?? 0 ,
             }).ToList();
         }
 
@@ -40,11 +40,12 @@ namespace WebApplication1_MVC_.Service.Implementation
             }
             var InstractorResponse = new InstructorResponseDTO
             {
+                InstracrorId = Instractor_By_Id.InstructorId,
                 InstructorName = Instractor_By_Id.InstructorName,
                 InstructorEmail = Instractor_By_Id.InstructorEmail,
                 InstructorPhone = Instractor_By_Id.InstructorPhone,
                 InstructorBio = Instractor_By_Id.InstructorBio,
-                CourseCount = Instractor_By_Id.courses?.Count?? 0 ,
+                Coures = Instractor_By_Id.courses.Select(e => e.CourseTitle).ToList()
             };
             return InstractorResponse ;
         }

@@ -1,0 +1,15 @@
+﻿@model WebApplication1_MVC_.DTOs.InstructorResponseDTO
+<div class="card">
+    <h3><strong>Are You Sure you want to delete this Instructor</strong></h3>
+    <div class="card-body">
+        <h5 class="card-title"> @Model.InstructorName</h5>
+        <p>His Id Is : @Model.InstructorName</p>
+    </div>
+    <div class="card-footer">
+        <form asp-action="Delete_Instructor"method="post">
+            <input type="hidden" name="id" value="@Model.InstracrorId" />
+            <input type="submit" value="delete" class="btn btn-danger" />
+            <a asp-action="All_Instructors" class="btn btn-secondary px-4">Back to List</a>
+        </form>
+    </div>
+</div>

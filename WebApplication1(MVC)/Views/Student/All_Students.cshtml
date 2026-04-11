@@ -7,6 +7,7 @@
 <h1 class="mb-4">All Students</h1>
 <div>
     <a class="btn btn-primary" asp-action="Add_Student">Add a new Students</a>
+    <a class="btn btn-primary" asp-controller="Instructor" asp-action="All_Instructors">All Instructors</a>
 </div>
 
 <table class="table table-striped table-hover border">
@@ -28,9 +29,20 @@
                 <td>@item.StudentAge</td>
                 <td>@item.Student_Email</td>
                 <td class="text-center">
-                    <a class="btn btn-info text-white" asp-action="Info_Student" asp-controller="Student" asp-route-id="@item.StudentId">Info</a>
-                    <a class="btn btn-primary" asp-action="Update_Student" asp-controller="Student" asp-route-id="@item.StudentId">Edit</a>
-                    <a class="btn btn-danger" asp-action="Delete_Student" asp-controller="Student" asp-route-id="@item.StudentId">Delete</a>
+                    <a class="btn btn-info text-white" 
+                        asp-action="Info_Student" 
+                        asp-controller="Student" 
+                        asp-route-id="@item.StudentId">Info</a>
+
+                    <a class="btn btn-primary" 
+                        asp-action="Update_Student" 
+                        asp-controller="Student" 
+                        asp-route-id="@item.StudentId">Edit</a>
+
+                    <a class="btn btn-danger" 
+                        asp-action="Delete_Student" 
+                        asp-controller="Student" 
+                        asp-route-id="@item.StudentId">Delete</a>
                 </td>
             </tr>
         }
