@@ -1,0 +1,40 @@
+﻿@model WebApplication1_MVC_.DTOs.Request_DTOs.CourseRequestDto
+
+@{
+    ViewData["Title"] = "Update Course";
+}
+
+<div class="card col-md-6 mx-auto mt-5 shadow-lg border-0">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Edit Course Details</h4>
+        <i class="bi bi-pencil-square"></i>
+    </div>
+    <div class="card-body p-4">
+        <form asp-action="Update_Course" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Course Name</label>
+                <input asp-for="CourseTitle" class="form-control" placeholder="Enter course name" />
+                <span asp-validation-for="CourseTitle" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Description</label>
+                <textarea asp-for="CourseDescription" class="form-control" rows="3" placeholder="Enter course description"></textarea>
+                <span asp-validation-for="CourseDescription" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Credits</label>
+                <input asp-for="CoursePrice" type="number" class="form-control" placeholder="e.g. 3" />
+                <span asp-validation-for="CoursePrice" class="text-danger"></span>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                <a asp-action="All_Courses" class="btn btn-outline-secondary px-4">Cancel</a>
+                <button type="submit" class="btn btn-primary px-4">Update Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+}

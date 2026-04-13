@@ -7,8 +7,8 @@ namespace WebApplication1_MVC_.Controllers
     public class EnrollmentController : Controller
     {
         private readonly IEnrollmentService _enrollmentService;
-        private readonly IStudentService _studentService; // عشان نجيب أسامي الطلاب
-        private readonly ICourseService _courseService;   // عشان نجيب أسامي الكورسات
+        private readonly IStudentService _studentService;
+        private readonly ICourseService _courseService;
 
         public EnrollmentController(
             IEnrollmentService enrollmentService,
@@ -20,15 +20,13 @@ namespace WebApplication1_MVC_.Controllers
             _courseService = courseService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> All_Enrollment()
         {
             var enrollments = await _enrollmentService.GetAllEnrollmentsAsync();
             return View(enrollments);
         }
-
-        // 2. صفحة التسجيل (GET) - "ركز هنا"
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Add_Enrollment()
         {
             var students = await _studentService.GetAllStudentsAsync();
             var courses = await _courseService.GetAllCoursesAsync();
@@ -37,11 +35,8 @@ namespace WebApplication1_MVC_.Controllers
 
             return View();
         }
-
-        // 3. تنفيذ التسجيل (POST)
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(EnrollmentRequestDto dto)
+        public async Task<IActionResult> Add_Enrollment(EnrollmentRequestDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -59,13 +54,13 @@ namespace WebApplication1_MVC_.Controllers
                 return View(dto);
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(All_Enrollment));
         }
         [HttpPost]
-        public async Task<IActionResult> Delete(int studentId, int courseId)
+        public async Task<IActionResult> Delete_Enrollment(int studentId, int courseId)
         {
             await _enrollmentService.UnenrollStudentAsync(studentId, courseId);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(All_Enrollment));
         }
     }
 }

@@ -9,49 +9,43 @@ namespace WebApplication1_MVC_.Controllers
     {
         private readonly ICourseService _courseService;
         public CourseController(ICourseService courseService) => _courseService = courseService;
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> All_Courses()
         {
             var courses = await _courseService.GetAllCoursesAsync();
             return View(courses);
         }
-
-        // 2. صفحة إضافة كورس جديد (GET)
         [HttpGet]
         public IActionResult Create() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CourseRequestDto courseDto)
+        public async Task<IActionResult> Add_Course(CourseRequestDto courseDto)
         {
             if (!ModelState.IsValid) return View(courseDto);
             await _courseService.AddCourseAsync(courseDto);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(All_Courses));
         }
-
-        // 4. صفحة التعديل - بتجيب بيانات الكورس القديمة
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Update_Course(int id)
         {
             var course = await _courseService.GetCourseByIdAsync(id);
             if (course == null) return NotFound();
             return View(course);
         }
-
-        // 5. تنفيذ التعديل
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, CourseRequestDto courseDto)
+        public async Task<IActionResult> Update_Course(int id, CourseRequestDto courseDto)
         {
             if (!ModelState.IsValid) return View(courseDto);
             var result = await _courseService.UpdateCourseAsync(id, courseDto);
             if (result == null) return NotFound();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(All_Courses));
         }
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete_Course(int id)
         {
             await _courseService.DeleteCourseAsync(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(All_Courses));
         }
     }
 }

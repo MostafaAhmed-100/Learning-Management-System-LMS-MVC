@@ -22,8 +22,10 @@ namespace WebApplication1_MVC_.Service.Implementation
             {
                 CourseTitle = x.Course.CourseTitle,
                 CoursePrice = x.Course.Price,
+                CourseId = x.Course.CourseId,
                 EnrollmentDate = x.EnrollmentDate,
                 StudentName = x.Student.StudentName,
+                StudentId = x.Student.StudentId,
             }).ToList();
         }
         public async Task<bool> EnrollStudentAsync(EnrollmentRequestDto enrollmentDto)

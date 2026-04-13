@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WebApplication1_MVC_.DTOs.CourseResponseDTO>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>All Courses</h1>
+    <a asp-action="Add_Course" class="btn btn-success">Add New Course</a>
+</div>
+<table class="table table-striped table-hover border">
+    <thead class="table-dark">
+        <tr>
+            <th>Course Name</th>
+            <th>Description</th>
+            <th>Credits</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CourseTitle</td>
+                <td>@item.CourseDescription</td>
+                <td>@item.CoursePrice</td>
+                <td class="text-center">
+                    <div class="btn-group">
+                        <form asp-action="Delete_Course" asp-route-id="@item.CourseId" method="post"
+                              onsubmit="return confirm('هل أنت متأكد من حذف كورس: @item.CourseTitle ؟');"
+                              style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </button>
+                        </form>
+                        <a class="btn btn-sm btn-primary" asp-action="Update_Course" asp-route-id="@item.CourseId">Edit</a>                        
+                        <form asp-action="Delete_Course" asp-route-id="@item.CourseId" method="post" onsubmit="return confirm('Are you sure?')">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

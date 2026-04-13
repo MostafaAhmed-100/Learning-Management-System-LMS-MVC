@@ -1,0 +1,26 @@
+﻿@model WebApplication1_MVC_.DTOs.Request_DTOs.CourseRequestDto
+
+<div class="card col-md-6 mx-auto mt-5 shadow">
+    <div class="card-header bg-success text-white">
+        <h4>Add New Course</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Add_Course" method="post">
+            <div class="mb-3">
+                <label class="form-label">Course Name</label>
+                <input asp-for="CourseTitle" class="form-control" />
+                <span asp-validation-for="CourseTitle" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea asp-for="CourseDescription" class="form-control"></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Credits</label>
+                <input asp-for="CoursePrice" type="number" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-success">Save Course</button>
+            <a asp-action="All_Courses" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
