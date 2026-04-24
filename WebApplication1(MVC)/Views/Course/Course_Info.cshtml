@@ -1,0 +1,21 @@
+﻿@model WebApplication1_MVC_.DTOs.CourseResponseDTO
+<div class="container">
+    <div class="card-header">
+        <h1>info for Course : @Model.CourseTitle </h1>
+    </div>
+    <div class="card-body">
+        <h3 class="text-primary"<strong>Course Information</strong></h3>
+        <p><strong>Id : @Model.CourseId</strong></p>
+        <p><strong>Course Name : @Model.CourseTitle</strong></p>
+        <p><strong>Price : @Model.CoursePrice</strong></p>
+        <p><strong>Description : @Model.CourseDescription</strong></p>
+        <p><strong>Created Date : @Model.CreatedDate</strong></p>
+        <p><strong>Instructor : @Model.InstractorName</strong></p>
+            <div class="card-footer bg-light text-end">
+                <a asp-action="All_Courses" class="btn btn-secondary px-4">Back to List</a>
+                <a asp-action="Update_Course" asp-route-id="@Model.CourseId" class="btn btn-primary px-4">Edit Info</a>
+            <a asp-controller="Instructor" asp-action="Instructor_Info" asp-route-id="@Model.InstructorId" class="btn btn-info px-4">Instructor Info</a>
+            </div>
+        </div>
+    </div>
+</div>

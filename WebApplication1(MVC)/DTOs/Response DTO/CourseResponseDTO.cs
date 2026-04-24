@@ -8,5 +8,7 @@
         public float CoursePrice { get; set; }
         public DateTime CreatedDate { get; set; }
         public string InstractorName { get; set; }
+
+        public int InstructorId { get; set; }
     }
 }

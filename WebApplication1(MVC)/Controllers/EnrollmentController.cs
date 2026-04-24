@@ -28,12 +28,11 @@ namespace WebApplication1_MVC_.Controllers
         [HttpGet]
         public async Task<IActionResult> Add_Enrollment()
         {
-            var students = await _studentService.GetAllStudentsAsync();
-            var courses = await _courseService.GetAllCoursesAsync();
-            ViewBag.Students = students;
-            ViewBag.Courses = courses;
+            ViewBag.Students = await _studentService.GetAllStudentsAsync();
+            ViewBag.Courses = await _courseService.GetAllCoursesAsync();
+            var dto = new EnrollmentRequestDto();
 
-            return View();
+            return View(dto);
         }
         [HttpPost]
         public async Task<IActionResult> Add_Enrollment(EnrollmentRequestDto dto)
