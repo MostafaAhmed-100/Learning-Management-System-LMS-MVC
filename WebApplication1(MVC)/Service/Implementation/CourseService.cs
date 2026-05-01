@@ -43,7 +43,7 @@ namespace WebApplication1_MVC_.Service.Implementation
                 CourseDescription = CourseId.Description,
                 CreatedDate = CourseId.CreatedDate,
                 InstractorName = CourseId.Instructor?.InstructorName??"No Instructor For That Cousre",
-                InstructorId = CourseId.CourseId,
+                InstructorId = CourseId.InstructorId,
                 CoursePrice = CourseId.Price,
             };
         }
@@ -78,7 +78,6 @@ namespace WebApplication1_MVC_.Service.Implementation
         {
             var course = new Course
             {
-                CourseId = course_request_dto.CourseId,
                 CourseTitle = course_request_dto.CourseTitle,
                 Description = course_request_dto.CourseDescription,
                 Price = course_request_dto.CoursePrice,
@@ -87,7 +86,6 @@ namespace WebApplication1_MVC_.Service.Implementation
             var AddCourse = await _courseRepository.AddAsync(course);
             var course_response_DTO = new CourseResponseDTO
             {
-                CourseId = AddCourse.CourseId,
                 CourseTitle = AddCourse.CourseTitle,
                 CourseDescription = AddCourse.Description,
                 CoursePrice= AddCourse.Price,

@@ -33,6 +33,20 @@ namespace WebApplication1_MVC_
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseRouting();
+            // Logging for Requests
+
+            app.Use(async (HttpContext, next) =>
+            {
+                var path = HttpContext.Request.Path.ToString().ToLower();
+                string[] staticExtensions = { ".css", ".js", ".png", ".jpg", ".svg", ".ico" };
+                if (!staticExtensions.Any(SE =>  path.EndsWith(SE)))
+                {
+                    var method = HttpContext.Request.Method;
+                    Console.WriteLine($"The method in use is :{method} \n" +
+                        $"and the path is : {path} ");
+                }
+                    await next();
+            });
 
             app.UseAuthorization();
 

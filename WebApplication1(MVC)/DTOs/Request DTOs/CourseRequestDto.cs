@@ -4,7 +4,7 @@ namespace WebApplication1_MVC_.DTOs.Request_DTOs
 {
     public class CourseRequestDto
     {
-        public int CourseId { get; set; }
+
         [Required, MaxLength(50), MinLength(3)]
         public string CourseTitle { get; set; }
         [Required, MaxLength(500), MinLength(10)]
@@ -13,5 +13,6 @@ namespace WebApplication1_MVC_.DTOs.Request_DTOs
         public float CoursePrice { get; set; }
         [Required]
         public int InstructorId { get; set; }
+
     }
 }
