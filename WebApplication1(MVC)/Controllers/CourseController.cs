@@ -23,13 +23,22 @@ namespace WebApplication1_MVC_.Controllers
             return View(course);
         }
         [HttpGet]
-        public IActionResult Add_Course () => View();
+        public async Task<IActionResult> Add_Course()
+        {
+            ViewBag.Instructor = await _courseService.GetAllInstructorsAsync();
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add_Course(CourseRequestDto courseDto)
         {
-            if (!ModelState.IsValid) return View(courseDto);
+            if (!ModelState.IsValid)
+            {
+
+                ViewBag.Instructor = await _courseService.GetAllInstructorsAsync();
+                return View(courseDto);
+            }
             await _courseService.AddCourseAsync(courseDto);
             return RedirectToAction(nameof(All_Courses));
         }

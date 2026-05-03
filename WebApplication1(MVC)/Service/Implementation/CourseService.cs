@@ -47,6 +47,10 @@ namespace WebApplication1_MVC_.Service.Implementation
                 CoursePrice = CourseId.Price,
             };
         }
+        public async Task<List<Instructor>> GetAllInstructorsAsync()
+        {
+            return await _courseRepository.GetAllInstructorsAsync(); 
+        }
         public async Task<CourseResponseDTO?> UpdateCourseAsync(int id, CourseRequestDto course_request_dto)
         {
             var course = new Course

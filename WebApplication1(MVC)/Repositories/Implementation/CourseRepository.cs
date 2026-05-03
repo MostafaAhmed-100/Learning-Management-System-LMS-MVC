@@ -33,6 +33,10 @@ namespace WebApplication1_MVC_.Repositories.Implementation
                 return CourseId;
             }
         }
+        public async Task<List<Instructor>> GetAllInstructorsAsync()
+        {
+            return await _context.instructors.ToListAsync();
+        }
         public async Task<Course> AddAsync(Course course)
         {
             var AddCourse = await _context.courses.AddAsync(course);

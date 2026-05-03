@@ -9,6 +9,7 @@ namespace WebApplication1_MVC_.Service.Interfaces
         Task<List<CourseResponseDTO>> GetAllCoursesAsync();
         Task<CourseResponseDTO?> GetCourseByIdAsync(int id);
         Task<CourseResponseDTO> AddCourseAsync(CourseRequestDto course_request_dto);
+        Task<List<Instructor>> GetAllInstructorsAsync();
         Task<CourseResponseDTO?> UpdateCourseAsync(int id, CourseRequestDto course_request_dto);
         Task<bool> DeleteCourseAsync(int id);
     }
