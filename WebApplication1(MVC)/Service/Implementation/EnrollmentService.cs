@@ -34,6 +34,7 @@ namespace WebApplication1_MVC_.Service.Implementation
             {
                 CourseId = enrollmentDto.CourseId,
                 StudentId = enrollmentDto.StudentId,
+                EnrollmentDate = DateTime.Now,
             };
             var Enroll = await _repository.AddAsync(Enrollment);
             if (Enroll == null)

@@ -89,7 +89,7 @@ namespace WebApplication1_MVC_.Service.Implementation
                 CourseTitle = AddCourse.CourseTitle,
                 CourseDescription = AddCourse.Description,
                 CoursePrice= AddCourse.Price,
-                CreatedDate = AddCourse.CreatedDate,
+                CreatedDate = DateTime.Now,
                 InstractorName = AddCourse.Instructor?.InstructorName ?? "No Instructor For That Cousre",
             };
             return course_response_DTO;

@@ -14,5 +14,7 @@ namespace WebApplication1_MVC_.DTOs.Request_DTOs
         [Required]
         public int InstructorId { get; set; }
 
+        public DateTime CourseCreatedDate { get; set; }
+
     }
 }
