@@ -1,46 +1,102 @@
-🎓 University Management System (MVC)
+<div align="center">
 
-نظام متكامل لإدارة العمليات الأكاديمية في الجامعات، تم بناؤه باستخدام تقنية ASP.NET Core MVC. يركز المشروع على ربط الكيانات الثلاثة الأساسية: الطلاب، الكورسات، والمعيدين، مع نظام تسجيل (Enrollment) ذكي.
+# 🎓 Learning Management System (LMS)
 
-🚀 الميزات الجديدة (Latest Updates)
+![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-8.0-512BD4?style=for-the-badge&logo=dotnet)
+![EF Core](https://img.shields.io/badge/EF%20Core-Latest-512BD4?style=for-the-badge&logo=dotnet)
+![SQL Server](https://img.shields.io/badge/SQL%20Server-Latest-CC2927?style=for-the-badge&logo=microsoftsqlserver)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?style=for-the-badge&logo=bootstrap)
 
-تم تحديث النظام ليدعم الربط الديناميكي بين الجداول:
+نظام متكامل لإدارة العمليات الأكاديمية، مبني بـ ASP.NET Core MVC
 
-- Student Dashboard: إمكانية عرض تفاصيل الطالب وإضافة كورسات له مباشرة من داخل ملفه الشخصي.
-- Instructor Management: ربط كل كورس بالمعيد المسؤول عنه وعرض قائمة الكورسات الخاصة بكل معيد.
-- Advanced Enrollment: نظام تسجيل يعتمد على معرفات (IDs) الطلاب والكورسات مع تسجيل تلقائي لتوقيت التسجيل.
-- Enhanced Navigation: توفير أزرار تنقل سريعة (Navigation Links) بين قوائم الطلاب، الكورسات، والانرولمنت لضمان تجربة مستخدم سلسة.
-- Course Insights: صفحة معلومات الكورس تعرض الآن (المعيد المسؤول، قائمة الطلاب المسجلين، وتواريخ الإضافة).
-- Request Logging Middleware: تسجيل تلقائي لكل request وارد (HTTP Method + Path) مع تجاهل الـ Static Files.
+</div>
 
-✨ الميزات الأساسية (Core Features)
+---
 
-- Full CRUD Operations: إدارة شاملة (إضافة، عرض، تعديل، حذف) لجميع البيانات.
-- Relational Database: تنفيذ علاقات معقدة (One-to-Many & Many-to-Many) بين الطلاب والمعيدين والكورسات.
-- Server-Side Validation: التأكد من صحة البيانات المدخلة قبل حفظها في قاعدة البيانات.
-- Responsive UI: واجهة مستخدم متجاوبة تماماً باستخدام Bootstrap و Razor Tag Helpers.
+## 📌 نظرة عامة
 
-🛠 التقنيات المستخدمة (Tech Stack)
+نظام إدارة تعليمي يربط بين الطلاب، الكورسات، والمعيدين مع نظام تسجيل (Enrollment) ذكي. تم بناؤه بمعمارية احترافية تعتمد على Repository Pattern و Service Layer.
 
-- Framework: ASP.NET Core 8.0 (MVC)
-- ORM: Entity Framework Core
-- Database: SQL Server
-- Frontend: Razor Views, HTML5, CSS3, Bootstrap 5
-- Architecture: Repository Pattern & Service Layer (لضمان تنظيم الكود وسهولة صيانته)
-- Middleware: Custom Request Logging Middleware
+---
 
-📊 هيكل البيانات (Database Schema)
+## ✨ الميزات
 
-يعتمد المشروع على نظام علاقات قوي:
+- ✅ Full CRUD لجميع الكيانات (Students, Courses, Instructors, Enrollments)
+- ✅ Repository Pattern & Service Layer
+- ✅ Server-Side Validation بـ Data Annotations
+- ✅ Many-to-Many Enrollment System مع منع التكرار
+- ✅ Password Hashing بـ ASP.NET Identity PasswordHasher
+- ✅ Custom Request Logging Middleware
+- ✅ Responsive UI بـ Bootstrap 5
 
-- Students ↔ Courses: علاقة (Many-to-Many) من خلال جدول الـ Enrollment.
-- Instructors ↔ Courses: علاقة (One-to-Many) حيث يتبع الكورس معيداً واحداً.
-- Departments: لتنظيم الطلاب والكورسات برمجياً.
+---
 
-⚙️ كيفية التشغيل (Setup)
+## 🛠 التقنيات المستخدمة
 
-1. قم بعمل Clone للمستودع.
-2. قم بتعديل Connection String في ملف appsettings.json ليتوافق مع جهازك.
-3. افتح الـ Package Manager Console وقم بتنفيذ الأوامر التالية:
-   Update-Database
-4. قم بتشغيل المشروع (F5).
+| التقنية | الاستخدام |
+|--------|-----------|
+| ASP.NET Core 8.0 MVC | Framework الأساسي |
+| Entity Framework Core | ORM & Database Management |
+| SQL Server | قاعدة البيانات |
+| Razor Views | Frontend Templating |
+| Bootstrap 5 | UI & Styling |
+| Repository Pattern | Data Access Layer |
+| Service Layer | Business Logic Layer |
+
+---
+
+## 📊 هيكل قاعدة البيانات
+Students ──────────────────── Enrollments ──────────────────── Courses
+(PK: StudentId)        (FK: StudentId, CourseId)         (PK: CourseId)
+│
+Instructors
+(PK: InstructorId)
+
+- **Students ↔ Courses**: Many-to-Many عن طريق جدول Enrollment
+- **Instructors ↔ Courses**: One-to-Many
+
+---
+
+## ⚙️ كيفية التشغيل
+
+1. Clone المشروع
+```bash
+git clone https://github.com/MostafaAhmed-100/Learning-Management-System-LMS-MVC.git
+```
+
+2. عدّل الـ Connection String في `appsettings.json`
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=YOUR_SERVER;Database=LMS_Project;Trusted_Connection=True;"
+}
+```
+
+3. طبّق الـ Migrations
+```bash
+Update-Database
+```
+
+4. شغّل المشروع بـ `F5`
+
+---
+
+## 📁 هيكل المشروع
+LMS-MVC/
+├── Controllers/
+├── Entities/
+├── DTOs/
+│   ├── Request DTOs/
+│   └── Response DTOs/
+├── Repositories/
+│   ├── Interface/
+│   └── Implementation/
+├── Service/
+│   ├── Interfaces/
+│   └── Implementation/
+└── Views/
+
+---
+
+<div align="center">
+Developed by Mostafa Ahmed Soudi © 2026
+</div>
