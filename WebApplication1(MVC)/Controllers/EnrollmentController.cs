@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication1_MVC_.DTOs.Request_DTOs;
 using WebApplication1_MVC_.Service.Interfaces;
 
@@ -20,42 +21,61 @@ namespace WebApplication1_MVC_.Controllers
             _courseService = courseService;
         }
 
+        [Authorize(Roles = "Admin,Instructor,Student")]
         public async Task<IActionResult> All_Enrollment()
         {
             var enrollments = await _enrollmentService.GetAllEnrollmentsAsync();
             return View(enrollments);
         }
+
         [HttpGet]
+        [Authorize(Roles = "Admin,Student")]
         public async Task<IActionResult> Add_Enrollment()
         {
-            ViewBag.Students = await _studentService.GetAllStudentsAsync();
-            ViewBag.Courses = await _courseService.GetAllCoursesAsync();
-            var dto = new EnrollmentRequestDto();
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.Students = await _studentService.GetAllStudentsAsync();
+            }
 
+            ViewBag.Courses = await _courseService.GetAllCoursesAsync();
+
+            var dto = new EnrollmentRequestDto();
             return View(dto);
         }
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Student")]
         public async Task<IActionResult> Add_Enrollment(EnrollmentRequestDto dto)
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Students = await _studentService.GetAllStudentsAsync();
+                if (User.IsInRole("Admin"))
+                    ViewBag.Students = await _studentService.GetAllStudentsAsync();
+
                 ViewBag.Courses = await _courseService.GetAllCoursesAsync();
                 return View(dto);
             }
 
             var result = await _enrollmentService.EnrollStudentAsync(dto);
+
             if (!result)
             {
-                ModelState.AddModelError("", "هذا الطالب مسجل بالفعل في هذا الكورس!");
-                ViewBag.Students = await _studentService.GetAllStudentsAsync();
+                ModelState.AddModelError("", "حدث خطأ أثناء التسجيل. قد تكون مسجلاً بالفعل في هذا الكورس، أو بياناتك غير مكتملة.");
+
+                if (User.IsInRole("Admin"))
+                    ViewBag.Students = await _studentService.GetAllStudentsAsync();
+
                 ViewBag.Courses = await _courseService.GetAllCoursesAsync();
                 return View(dto);
             }
 
             return RedirectToAction(nameof(All_Enrollment));
         }
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete_Enrollment(int studentId, int courseId)
         {
             await _enrollmentService.UnenrollStudentAsync(studentId, courseId);

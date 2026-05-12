@@ -7,6 +7,6 @@ namespace WebApplication1_MVC_.Service.Interfaces
     {
         Task<List<EnrollmentResponseDTO>> GetAllEnrollmentsAsync();
         Task<bool> EnrollStudentAsync(EnrollmentRequestDto enrollmentDto);
-        Task<bool> UnenrollStudentAsync(int studentId, int courseId);
+        Task<bool?> UnenrollStudentAsync(int studentId, int courseId);
     }
 }

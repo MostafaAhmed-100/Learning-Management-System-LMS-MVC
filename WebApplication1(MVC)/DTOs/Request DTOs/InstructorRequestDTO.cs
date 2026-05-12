@@ -15,10 +15,8 @@ namespace WebApplication1_MVC_.DTOs.Request_DTOs
 
         [MinLength(8)]
         public string InstructorPassword { get; set; }
-        [Required ]
         public int CourseCount { get; set; }
-        [Required]
-        public string CourseName { get; set; }
+        public string? CourseName { get; set; }
 
     }
 }

@@ -1,0 +1,35 @@
+﻿@model WebApplication1_MVC_.DTOs.Request_DTOs.RegisterAdminDto
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-dark text-white text-center py-3 rounded-top-4">
+                    <h4 class="mb-0"><i class="bi bi-person-plus-fill me-2"></i>تسجيل مسؤول جديد</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="RegisterAdmin">
+                        <div asp-validation-summary="ModelOnly" class="text-danger small"></div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="UserName" class="form-control" placeholder="Username" />
+                            <label>اسم المستخدم</label>
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Email" class="form-control" placeholder="Email" />
+                            <label>البريد الإلكتروني</label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
+                            <label>كلمة المرور</label>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-dark btn-lg w-100 rounded-pill shadow-sm">
+                            إنشاء حساب أدمن
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

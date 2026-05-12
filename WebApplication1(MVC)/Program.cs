@@ -1,5 +1,9 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using WebApplication1_MVC_.Filter;
+using WebApplication1_MVC_.Models;
 using WebApplication1_MVC_.Repositories.Implementation;
 using WebApplication1_MVC_.Repositories.Interface;
 using WebApplication1_MVC_.Service.Implementation;
@@ -29,6 +33,16 @@ namespace WebApplication1_MVC_
             builder.Services.AddScoped<IStudentService , StudentService>();
             builder.Services.AddScoped<IInstructorService, InstructorService>();
             builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(option => {
+                option.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+ ";
+                option.Password.RequiredLength = 4;
+                option.Password.RequireDigit = false;
+                option.Password.RequireNonAlphanumeric = false;
+                option.Password.RequireUppercase = false;
+            }).AddEntityFrameworkStores<APPDbContext>()
+            .AddRoles<IdentityRole>();  
             var app = builder.Build();
 
             
@@ -49,13 +63,13 @@ namespace WebApplication1_MVC_
                 }
                 await next();
             });
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();
                 app.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Student}/{action=All_Students}/{id?}")
+                    pattern: "{controller=Account}/{action=Login}")
                     .WithStaticAssets();
 
             app.Run();

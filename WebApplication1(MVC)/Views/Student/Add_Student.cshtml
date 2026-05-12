@@ -1,14 +1,37 @@
 ﻿@model StudentRequestDto
-<div>
-    <form asp-action="Add_Student" method="post">
-        <label>Name</label>
-        <input asp-for="StudentName" class= "form-control"/>
-        <label>Email</label>
-        <input asp-for="StudentEmail" class="form-control" />
-        <label>Age</label>
-        <input asp-for="StudentAge" class="form-control" />
-        <label>Password</label>
-        <input asp-for="StudentPassword" class="form-control" />
-        <input type="submit"  value="Add" class="btn btn-primary" />
-    </form>
+
+<div class="container mt-4">
+    <div class="card col-md-6 mx-auto shadow-sm border-0 rounded-4">
+        <div class="card-header bg-primary text-white py-3 rounded-top-4">
+            <h4 class="mb-0 text-center"><i class="bi bi-person-plus-fill me-2"></i>إضافة طالب جديد</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Add_Student" method="post">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">الاسم بالكامل</label>
+                    <input asp-for="StudentName" class="form-control rounded-3" placeholder="أدخل اسم الطالب" />
+                    <span asp-validation-for="StudentName" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">البريد الإلكتروني</label>
+                    <input asp-for="StudentEmail" class="form-control rounded-3" placeholder="example@ecu.edu.eg" />
+                    <span asp-validation-for="StudentEmail" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">العمر</label>
+                    <input asp-for="StudentAge" class="form-control rounded-3" />
+                    <span asp-validation-for="StudentAge" class="text-danger small"></span>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-bold">كلمة المرور</label>
+                    <input asp-for="StudentPassword" type="password" class="form-control rounded-3" />
+                    <span asp-validation-for="StudentPassword" class="text-danger small"></span>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary rounded-pill py-2 shadow-sm fw-bold">إضافة الطالب</button>
+                    <a asp-action="All_Students" class="btn btn-light rounded-pill">إلغاء</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

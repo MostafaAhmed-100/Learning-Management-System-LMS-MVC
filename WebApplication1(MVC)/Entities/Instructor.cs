@@ -15,8 +15,9 @@ namespace WebApplication1_MVC_.Entitys
         public string InstructorPhone { get; set; }
         [Required, MaxLength(350)]
         public string InstructorBio { get; set; }
-        [Required, MinLength(3)]
-        public string InstructorPassword { get; set; }
+
+        public string? InstructorPassword { get; set; }
+        public string? IdentityUserId { get; set; }
         public ICollection<Course> courses { get; set; } = new List<Course>();
     }
 }

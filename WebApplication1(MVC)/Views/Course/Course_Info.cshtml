@@ -1,21 +1,40 @@
 ﻿@model WebApplication1_MVC_.DTOs.CourseResponseDTO
-<div class="container">
-    <div class="card-header">
-        <h1>info for Course : @Model.CourseTitle </h1>
-    </div>
-    <div class="card-body">
-        <h3 class="text-primary"<strong>Course Information</strong></h3>
-        <p><strong>Id : @Model.CourseId</strong></p>
-        <p><strong>Course Name : @Model.CourseTitle</strong></p>
-        <p><strong>Price : @Model.CoursePrice</strong></p>
-        <p><strong>Description : @Model.CourseDescription</strong></p>
-        <p><strong>Created Date : @Model.CreatedDate</strong></p>
-        <p><strong>Instructor : @Model.InstractorName</strong></p>
-            <div class="card-footer bg-light text-end">
-                <a asp-action="All_Courses" class="btn btn-secondary px-4">Back to List</a>
-                <a asp-action="Update_Course" asp-route-id="@Model.CourseId" class="btn btn-primary px-4">Edit Info</a>
-            <a asp-controller="Instructor" asp-action="Instructor_Info" asp-route-id="@Model.InstructorId" class="btn btn-info px-4">Instructor Info</a>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="All_Courses">الكورسات</a></li>
+        <li class="breadcrumb-item active">تفاصيل الكورس</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow-sm p-4 h-100">
+            <h1 class="display-6 fw-bold text-primary mb-3">@Model.CourseTitle</h1>
+            <p class="lead text-muted">@Model.CourseDescription</p>
+            <hr>
+            <div class="row g-3">
+                <div class="col-6">
+                    <p class="mb-1 text-muted small uppercase">تاريخ الإنشاء</p>
+                    <p class="fw-bold">@Model.CreatedDate.ToShortDateString()</p>
+                </div>
+                <div class="col-6">
+                    <p class="mb-1 text-muted small uppercase">السعر</p>
+                    <p class="fw-bold text-success">@Model.CoursePrice.ToString("C")</p>
+                </div>
             </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-primary text-white shadow p-4 text-center">
+            <i class="bi bi-person-badge style" style="font-size: 3rem;"></i>
+            <h4>المحاضر</h4>
+            <h5 class="mb-3">@Model.InstractorName</h5>
+            <a asp-controller="Instructor" asp-action="Info_Instructor" asp-route-id="@Model.InstructorId"
+               class="btn btn-light w-100 btn-round">عرض ملف المحاضر</a>
+        </div>
+        <div class="mt-3">
+            <a asp-action="All_Courses" class="btn btn-secondary w-100 btn-round">العودة للقائمة</a>
         </div>
     </div>
 </div>

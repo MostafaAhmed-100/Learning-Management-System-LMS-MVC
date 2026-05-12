@@ -1,7 +1,6 @@
 ﻿using WebApplication1_MVC_.DTOs;
 using WebApplication1_MVC_.DTOs.Request_DTOs;
 using WebApplication1_MVC_.Entitys;
-using WebApplication1_MVC_.Repositories.Implementation;
 using WebApplication1_MVC_.Repositories.Interface;
 using WebApplication1_MVC_.Service.Interfaces;
 
@@ -15,6 +14,7 @@ namespace WebApplication1_MVC_.Service.Implementation
         {
             _courseRepository = courseRepository;
         }
+
         public async Task<List<CourseResponseDTO>> GetAllCoursesAsync()
         {
             var AllCourses = await _courseRepository.GetAllAsync();
@@ -25,85 +25,66 @@ namespace WebApplication1_MVC_.Service.Implementation
                 CreatedDate = c.CreatedDate,
                 CourseDescription = c.Description,
                 CoursePrice = c.Price,
-                InstractorName = c.Instructor?.InstructorName ?? "No Instructor For That Cousre",
+                InstractorName = c.Instructor?.InstructorName ?? "لم يتم تحديد محاضر",
                 InstructorId = c.InstructorId,
             }).ToList();
         }
+
         public async Task<CourseResponseDTO?> GetCourseByIdAsync(int id)
         {
-            var CourseId = await _courseRepository.GetByIdAsync(id);
-            if (CourseId == null)
-            {
-                return null;
-            }
+            var course = await _courseRepository.GetByIdAsync(id);
+            if (course == null) return null;
+
             return new CourseResponseDTO
             {
-                CourseId = CourseId.CourseId,
-                CourseTitle = CourseId.CourseTitle,
-                CourseDescription = CourseId.Description,
-                CreatedDate = CourseId.CreatedDate,
-                InstractorName = CourseId.Instructor?.InstructorName??"No Instructor For That Cousre",
-                InstructorId = CourseId.InstructorId,
-                CoursePrice = CourseId.Price,
+                CourseId = course.CourseId,
+                CourseTitle = course.CourseTitle,
+                CourseDescription = course.Description,
+                CreatedDate = course.CreatedDate,
+                InstractorName = course.Instructor?.InstructorName ?? "لم يتم تحديد محاضر",
+                InstructorId = course.InstructorId,
+                CoursePrice = course.Price,
             };
         }
+
         public async Task<List<Instructor>> GetAllInstructorsAsync()
         {
-            return await _courseRepository.GetAllInstructorsAsync(); 
+            return await _courseRepository.GetAllInstructorsAsync();
         }
-        public async Task<CourseResponseDTO?> UpdateCourseAsync(int id, CourseRequestDto course_request_dto)
+
+        public async Task<CourseResponseDTO?> UpdateCourseAsync(int id, CourseRequestDto courseDto)
+        {
+            var existingCourse = await _courseRepository.GetByIdAsync(id);
+            if (existingCourse == null) return null;
+
+            existingCourse.CourseTitle = courseDto.CourseTitle;
+            existingCourse.Description = courseDto.CourseDescription;
+            existingCourse.Price = courseDto.CoursePrice;
+            existingCourse.InstructorId = courseDto.InstructorId;
+
+            var updated = await _courseRepository.UpdateAsync(id, existingCourse);
+            return await GetCourseByIdAsync(updated.CourseId);
+        }
+
+        public async Task<CourseResponseDTO> AddCourseAsync(CourseRequestDto courseDto)
         {
             var course = new Course
             {
-                CourseId = id , 
-                CourseTitle = course_request_dto.CourseTitle,
-                Description = course_request_dto.CourseDescription,
-                Price = course_request_dto.CoursePrice,
-                InstructorId = course_request_dto.InstructorId,
+                CourseTitle = courseDto.CourseTitle,
+                Description = courseDto.CourseDescription,
+                Price = courseDto.CoursePrice,
+                InstructorId = courseDto.InstructorId,
+                CreatedDate = DateTime.Now
             };
-            var CourseId = await _courseRepository.UpdateAsync(id, course);
-            if (CourseId == null)
-            {
-                return null;
-            }
-            var course_response_DTO = new CourseResponseDTO
-            {
-                CourseId = CourseId.CourseId,
-                InstructorId = CourseId.InstructorId,
-                CourseTitle = CourseId.CourseTitle,
-                CourseDescription = CourseId.Description,
-                CoursePrice = CourseId.Price,
-                CreatedDate = CourseId.CreatedDate,
-                InstractorName = CourseId.Instructor?.InstructorName?? "No Instructor For That Cousre",
-            };
-            return course_response_DTO;
+
+            var addedCourse = await _courseRepository.AddAsync(course);
+            return await GetCourseByIdAsync(addedCourse.CourseId);
         }
-        public async Task<CourseResponseDTO> AddCourseAsync(CourseRequestDto course_request_dto)
-        {
-            var course = new Course
-            {
-                CourseTitle = course_request_dto.CourseTitle,
-                Description = course_request_dto.CourseDescription,
-                Price = course_request_dto.CoursePrice,
-                InstructorId = course_request_dto.InstructorId,
-            };
-            var AddCourse = await _courseRepository.AddAsync(course);
-            var course_response_DTO = new CourseResponseDTO
-            {
-                CourseTitle = AddCourse.CourseTitle,
-                CourseDescription = AddCourse.Description,
-                CoursePrice= AddCourse.Price,
-                CreatedDate = DateTime.Now,
-                InstractorName = AddCourse.Instructor?.InstructorName ?? "No Instructor For That Cousre",
-            };
-            return course_response_DTO;
-        }
+
         public async Task<bool> DeleteCourseAsync(int id)
         {
-            var DeleteCourse = await _courseRepository.DeleteAsync(id);
-            if (DeleteCourse == null) 
-            { return false; } 
-            return true;
+            var result = await _courseRepository.DeleteAsync(id);
+            return result != null;
         }
     }
 }

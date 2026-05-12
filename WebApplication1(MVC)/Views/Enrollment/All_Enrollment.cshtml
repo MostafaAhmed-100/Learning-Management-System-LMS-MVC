@@ -1,39 +1,43 @@
 ﻿@model IEnumerable<WebApplication1_MVC_.DTOs.EnrollmentResponseDTO>
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-dark"><i class="bi bi-person-vcard me-2"></i>إدارة التسجيلات</h2>
+        <a asp-action="Add_Enrollment" class="btn btn-primary rounded-pill px-4 shadow-sm">
+            <i class="bi bi-person-plus"></i> تسجيل طالب في كورس
+        </a>
+    </div>
 
-@{
-    ViewData["Title"] = "Enrollments List";
-}
-
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>All Enrollments</h1>
-    <a asp-action="Add_Enrollment" class="btn btn-success">Add New Enrollment</a>
-    <a class="btn btn-primary" asp-controller="Student" asp-action="All_Students">All Students</a>
+    <div class="card shadow-sm border-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4">اسم الطالب</th>
+                        <th>اسم الكورس</th>
+                        <th>تاريخ التسجيل</th>
+                        <th class="text-center">العمليات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4">@item.StudentName</td>
+                            <td><span class="badge bg-light text-dark border">@item.CourseTitle</span></td>
+                            <td>@item.EnrollmentDate.ToShortDateString()</td>
+                            <td class="text-center">
+                                <form asp-action="Delete_Enrollment" method="post" onsubmit="return confirm('هل تريد إلغاء تسجيل هذا الطالب؟')">
+                                    <input type="hidden" name="studentId" value="@item.StudentId" />
+                                    <input type="hidden" name="courseId" value="@item.CourseId" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger px-3">
+                                        <i class="bi bi-trash"></i> حذف
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-
-<table class="table table-striped table-hover border">
-    <thead class="table-dark">
-        <tr>
-            <th>Student Name</th>
-            <th>Course Name</th>
-            <th>Enrollment Date</th>
-            <th class="text-center">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.StudentName</td>
-                <td>@item.CourseTitle</td>
-                <td>@item.EnrollmentDate.ToShortDateString()</td>
-                <td class="text-center">
-                    <form asp-action="Delete_Enrollment" method="post" onsubmit="return confirm('Are you sure?')">
-                        <input type="hidden" name="studentId" value="@item.StudentId" />
-                        <input type="hidden" name="courseId" value="@item.CourseId" />
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>

@@ -1,34 +1,40 @@
 ﻿@model WebApplication1_MVC_.DTOs.Request_DTOs.CourseRequestDto
-
-<div class="card col-md-6 mx-auto mt-5 shadow">
-    <div class="card-header bg-success text-white">
-        <h4>Add New Course</h4>
-    </div>
-    <div class="card-body">
-        <form asp-action="Add_Course" method="post">
-            <div class="mb-3">
-                <label class="form-label">Course Name</label>
-                <input asp-for="CourseTitle" class="form-control" />
-                <span asp-validation-for="CourseTitle" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Description</label>
-                <textarea asp-for="CourseDescription" class="form-control"></textarea>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Credits</label>
-                <input asp-for="CoursePrice" type="number" class="form-control" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Select Instractor</label>
-                <select asp-for="InstructorId" class="form-select"
-                        asp-items="@(new SelectList(ViewBag.Instructor, "InstructorId", "InstructorName"))">
-                    <option value="">-- Choose Instractor --</option>
-                </select>
-                <span asp-validation-for="InstructorId" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-success">Save Course</button>
-            <a asp-action="All_Courses" class="btn btn-secondary">Cancel</a>
-        </form>
+<div class="container mt-4">
+    <div class="card col-md-8 mx-auto shadow-sm border-0">
+        <div class="card-header bg-success text-white py-3">
+            <h4 class="mb-0"><i class="bi bi-plus-circle me-2"></i>إضافة كورس جديد</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Add_Course" method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">اسم الكورس</label>
+                        <input asp-for="CourseTitle" class="form-control shadow-sm" />
+                        <span asp-validation-for="CourseTitle" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">السعر / الساعات المعمدة</label>
+                        <input asp-for="CoursePrice" type="number" class="form-control shadow-sm" />
+                        <span asp-validation-for="CoursePrice" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">اختيار المحاضر</label>
+                        <select asp-for="InstructorId" class="form-select shadow-sm"
+                                asp-items="ViewBag.Instructors">
+                            <option value="">-- اختر المحاضر --</option>
+                        </select>
+                        <span asp-validation-for="InstructorId" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 mb-4">
+                        <label class="form-label fw-bold">وصف الكورس</label>
+                        <textarea asp-for="CourseDescription" rows="3" class="form-control shadow-sm"></textarea>
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success px-4 rounded-pill">حفظ الكورس</button>
+                    <a asp-action="All_Courses" class="btn btn-outline-secondary px-4 rounded-pill">إلغاء</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

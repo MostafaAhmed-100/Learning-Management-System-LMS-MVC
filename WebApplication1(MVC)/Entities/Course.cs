@@ -19,6 +19,8 @@ namespace WebApplication1_MVC_.Entitys
         public Instructor Instructor { get; set; }
         [Required, ForeignKey(nameof(InstructorId))]
         public int InstructorId { get; set; }
-        public ICollection<Enrollment> enrollments{ get; set; }
+        public ICollection<Enrollment> enrollments { get; set; }
+
+        public string? IdentityUserId { get; set; }
     }
 }

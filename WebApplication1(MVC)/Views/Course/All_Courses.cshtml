@@ -1,45 +1,46 @@
 ﻿@model IEnumerable<WebApplication1_MVC_.DTOs.CourseResponseDTO>
-<h1 class="mb-4">All Courses</h1>
-<a class="btn btn-primary" asp-action="Add_Course">Add a new Course</a>
-<table class="table table-striped table-hover border">
-    <thead class="table-dark">
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th class="text-center">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.CourseId</td>
-                <td>@item.CourseTitle</td>
-                <td>@item.CoursePrice</td>
-                <td class="text-center">
-                    <a class="btn btn-info text-white"
-                       asp-action="Course_Info"
-                       asp-controller="Course"
-                       asp-route-id="@item.CourseId">Info</a>
 
-                    <a class="btn btn-primary"
-                       asp-action="Update_Course"
-                       asp-controller="Course"
-                       asp-route-id="@item.CourseId">Edit</a>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold"><i class="bi bi-journals me-2"></i> جميع الكورسات</h2>
+    <a class="btn btn-success btn-round px-4 shadow-sm" asp-action="Add_Course">
+        <i class="bi bi-plus-lg"></i> إضافة كورس جديد
+    </a>
+</div>
 
-                    <div class="btn-group">
-                        <form asp-action="Delete_Course" asp-route-id="@item.CourseId" method="post"
-                              onsubmit="return confirm('هل أنت متأكد من حذف كورس: @item.CourseTitle ؟');"
-                              style="display:inline;">
-                            <button type="submit" class="btn btn-sm btn-danger">
-                                <i class="bi bi-trash"></i> Delete
-                            </button>
-                        </form>
-                       
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="card shadow-sm">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th class="ps-4">اسم الكورس</th>
+                    <th>السعر</th>
+                    <th>المحاضر</th>
+                    <th class="text-center">العمليات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="ps-4 fw-bold">@item.CourseTitle</td>
+                        <td><span class="badge bg-info text-dark">@item.CoursePrice.ToString("C")</span></td>
+                        <td>@item.InstractorName</td>
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-outline-info me-1" asp-action="Course_Info" asp-route-id="@item.CourseId">
+                                <i class="bi bi-eye"></i> التفاصيل
+                            </a>
+                            <a class="btn btn-sm btn-outline-primary me-1" asp-action="Update_Course" asp-route-id="@item.CourseId">
+                                <i class="bi bi-pencil"></i> تعديل
+                            </a>
+                            <form asp-action="Delete_Course" asp-route-id="@item.CourseId" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('حذف الكورس؟')">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

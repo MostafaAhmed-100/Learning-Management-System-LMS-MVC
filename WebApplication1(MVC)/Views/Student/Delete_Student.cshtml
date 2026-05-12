@@ -1,15 +1,29 @@
 ﻿@model WebApplication1_MVC_.DTOs.StudentResponseDTO
-<div class="card">
-    <h3><strong>Are You Sure you want to delete this student</strong></h3>
-    <div class="card-body">
-        <h5 class="card-title"> @Model.StudentName</h5>
-        <p>His Id Is : @Model.StudentId</p>
-    </div>
-    <div class="card-footer">
-        <form asp-action="Delete_Student" asp-action="Delete_Student" method="post">
-            <input type="hidden" name="id" value="@Model.StudentId" />
-            <input type="submit" value="delete" class="btn btn-danger" />
-            <a asp-action="All_Students" class="btn btn-secondary px-4">Back to List</a>
-        </form>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-lg border-0 rounded-4 text-center overflow-hidden">
+                <div class="bg-danger py-4 text-white">
+                    <i class="bi bi-person-x-fill style" style="font-size: 4rem;"></i>
+                    <h3 class="fw-bold mt-2">تأكيد الحذف</h3>
+                </div>
+                <div class="card-body p-4">
+                    <p class="text-muted mb-4">هل أنت متأكد تماماً من رغبتك في حذف هذا الطالب؟ لا يمكن التراجع عن هذه الخطوة.</p>
+                    <div class="p-3 bg-light rounded-3 mb-4">
+                        <h5 class="fw-bold text-dark mb-1">@Model.StudentName</h5>
+                        <span class="text-muted small">كود الطالب: #@Model.StudentId</span>
+                    </div>
+                    
+                    <form asp-action="Delete_Student" method="post">
+                        <input type="hidden" name="id" value="@Model.StudentId" />
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-danger w-100 rounded-pill py-2 fw-bold shadow-sm">نعم، احذف الطالب</button>
+                            <a asp-action="All_Students" class="btn btn-outline-secondary w-100 rounded-pill py-2">إلغاء</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

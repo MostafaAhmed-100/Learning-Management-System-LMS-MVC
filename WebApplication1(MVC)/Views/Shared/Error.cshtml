@@ -1,39 +1,29 @@
 ﻿@model ErrorViewModel
-@{
-    ViewData["Title"] = "Oops! Something went wrong";
-}
-
-<div class="container text-center" style="margin-top: 50px;">
-    <div class="display-1 text-danger">
-        <i class="bi bi-exclamation-triangle-fill"></i>
-    </div>
-
-    <h1 class="text-danger mt-3">عذراً، حدث خطأ ما!</h1>
-    
-    <div class="row justify-content-center mt-4">
-        <div class="col-md-8">
-            <div class="card border-danger mb-3">
-                <div class="card-header bg-danger text-white">
-                    <h5 class="mb-0">تفاصيل الخطأ</h5>
-                </div>
-                <div class="card-body">
-                    <p class="card-text fs-5 text-dark">
-                        @if (ViewData["ErrorMessage"] != null)
-                        {
-                            @ViewData["ErrorMessage"]
-                        }
-                        else
-                        {
-                            <span>حدث خطأ غير متوقع في النظام، يرجى المحاولة لاحقاً.</span>
-                        }
-                    </p>
-                </div>
+<div class="container text-center py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="display-1 text-danger mb-4">
+                <i class="bi bi-exclamation-octagon-fill"></i>
             </div>
+            <h1 class="fw-bold">حدث خطأ غير متوقع</h1>
+            <p class="text-muted fs-5 mb-4">نعتذر عن الإزعاج، يبدو أن هناك مشكلة فنية حدثت في النظام.</p>
+            
+            <div class="card border-0 bg-light p-4 mb-4 text-start">
+                <h6 class="fw-bold border-bottom pb-2 mb-3">تفاصيل تقنية:</h6>
+                <code>
+                    @if (ViewData["ErrorMessage"] != null)
+                    {
+                        @ViewData["ErrorMessage"]
+                    }
+                    else
+                    {
 
-            <div class="mt-4">
-                <p class="text-muted">إذا استمرت المشكلة، يرجى التواصل مع الدعم الفني.</p>
-                <a href="/" class="btn btn-primary px-4">العودة للرئيسية</a>
+                        <span>Internal System Error (Status 500)</span>
+                    }
+                </code>
             </div>
+            
+            <a href="/" class="btn btn-primary btn-lg rounded-pill px-5 shadow">العودة للرئيسية</a>
         </div>
     </div>
 </div>

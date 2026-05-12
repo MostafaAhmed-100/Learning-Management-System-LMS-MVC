@@ -1,39 +1,62 @@
 ﻿@model WebApplication1_MVC_.DTOs.StudentResponseDTO
-<div  class="container">
-    <div class="card-header">
-        <h1>info for Student : @Model.StudentName </h1>
-    </div>
-    <div class="card-body">
-        <h3 class="text-primary"<strong>Personal Information</strong></h3>
-        <p><strong>Id : @Model.StudentId</strong></p>
-        <p><strong>Full Name : @Model.StudentName</strong></p>
-        <p><strong>Age : @Model.StudentAge</strong></p>
-        <p><strong>Email : @Model.Student_Email</strong></p>
-        <div>   
-            <h5><strong>Enrolled Courses</strong></h5>
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- الكارت الشخصي -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 text-center p-4 rounded-4 mb-4">
+                <div class="bg-primary bg-opacity-10 text-primary rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3" style="width: 100px; height: 100px;">
+                    <i class="bi bi-person-badge h1 mb-0"></i>
+                </div>
+                <h3 class="fw-bold">@Model.StudentName</h3>
+                <p class="text-muted">كود الطالب: #@Model.StudentId</p>
+                <hr />
+                <div class="text-start">
+                    <p><strong><i class="bi bi-envelope me-2 text-primary"></i>البريد:</strong> @Model.Student_Email</p>
+                    <p><strong><i class="bi bi-calendar3 me-2 text-primary"></i>العمر:</strong> @Model.StudentAge سنة</p>
+                </div>
+                <div class="d-grid gap-2 mt-3">
+                    <a asp-action="Update_Student" asp-route-id="@Model.StudentId" class="btn btn-outline-primary rounded-pill btn-sm">تعديل البيانات</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- الكورسات المسجلة -->
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 rounded-4 h-100">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-bottom">
+                    <h5 class="mb-0 fw-bold text-dark"><i class="bi bi-journal-text me-2 text-primary"></i>الكورسات المسجلة</h5>
+                    <a asp-controller="Enrollment" asp-action="Add_Enrollment" class="btn btn-success btn-sm rounded-pill">
+                        <i class="bi bi-plus-circle me-1"></i>تسجيل في كورس
+                    </a>
+                </div>
+                <div class="card-body">
                     @if (Model.Enrollments != null && Model.Enrollments.Any())
                     {
-                        <div class="list-group">
+                        <div class="row g-3">
                             @foreach (var course in Model.Enrollments)
                             {
-                                <div class="align-items-center">
-                                    @course
-                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                <div class="col-md-6">
+                                    <div class="p-3 border rounded-3 d-flex align-items-center justify-content-between bg-light bg-opacity-50">
+                                        <span class="fw-bold"><i class="bi bi-book me-2"></i>@course</span>
+                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                    </div>
                                 </div>
                             }
                         </div>
                     }
                     else
                     {
-                    <div class="alert alert-warning">
-                        No enrollments found for this student.
-                    </div>
+                        <div class="alert alert-warning border-0 rounded-3 py-4 text-center">
+                            <i class="bi bi-exclamation-triangle h2 d-block mb-2"></i>
+                            هذا الطالب غير مسجل في أي كورس حالياً.
+                        </div>
                     }
-            <div class="card-footer bg-light text-end">
-                <a asp-controller="Enrollment" asp-action="Add_Enrollment" class="btn btn-secondary px-4">Add Enrollment</a>
-                <a asp-action="All_Students" class="btn btn-secondary px-4">Back to List</a>
-                <a asp-action="Update_Student" asp-route-id="@Model.StudentId" class="btn btn-primary px-4">Edit Info</a>
+                </div>
+                <div class="card-footer bg-light border-0 py-3 text-end">
+                    <a asp-action="All_Students" class="btn btn-secondary px-4 rounded-pill">العودة للقائمة</a>
+                </div>
             </div>
         </div>
-    </div> 
+    </div>
 </div>

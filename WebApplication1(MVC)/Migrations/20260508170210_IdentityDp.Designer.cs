@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1_MVC_;
 
@@ -11,9 +12,11 @@ using WebApplication1_MVC_;
 namespace WebApplication1_MVC_.Migrations
 {
     [DbContext(typeof(APPDbContext))]
-    partial class APPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260508170210_IdentityDp")]
+    partial class IdentityDp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,9 +179,6 @@ namespace WebApplication1_MVC_.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<string>("IdentityUserId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("InstructorId")
                         .HasColumnType("int");
 
@@ -203,9 +203,6 @@ namespace WebApplication1_MVC_.Migrations
                     b.Property<DateTime>("EnrollmentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("IdentityUserId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("StudentId", "CourseId");
 
                     b.HasIndex("CourseId");
@@ -220,9 +217,6 @@ namespace WebApplication1_MVC_.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InstructorId"));
-
-                    b.Property<string>("IdentityUserId")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InstructorBio")
                         .IsRequired()
@@ -240,6 +234,7 @@ namespace WebApplication1_MVC_.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("InstructorPassword")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InstructorPhone")
@@ -260,9 +255,6 @@ namespace WebApplication1_MVC_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"));
 
-                    b.Property<string>("IdentityUserId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("StudentAge")
                         .HasColumnType("int");
 
@@ -277,6 +269,7 @@ namespace WebApplication1_MVC_.Migrations
                         .HasColumnType("nvarchar(355)");
 
                     b.Property<string>("Student_Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("StudentId");

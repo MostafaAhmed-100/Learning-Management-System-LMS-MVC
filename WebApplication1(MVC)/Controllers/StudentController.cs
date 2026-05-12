@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication1_MVC_.DTOs.Request_DTOs;
 using WebApplication1_MVC_.Service.Interfaces;
 
@@ -9,12 +10,14 @@ namespace WebApplication1_MVC_.Controllers
         private readonly IStudentService _studentService;
         public StudentController(IStudentService studentService) => _studentService = studentService;
         [HttpGet]
+        [Authorize(Roles = "Admin,Instructor")]
         public async Task<IActionResult> All_Students()
         {
             var students = await _studentService.GetAllStudentsAsync();
             return View(students);
         }
         [HttpGet]
+        [Authorize(Roles = "Admin,Instructor")]
         public async Task<IActionResult> Info_Student(int id)
         {
             var student = await _studentService.GetStudentByIdAsync(id);
@@ -22,6 +25,7 @@ namespace WebApplication1_MVC_.Controllers
             return View(student);
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update_Student(int id)
         {
             var student = await _studentService.GetStudentByIdAsync(id);
@@ -38,11 +42,14 @@ namespace WebApplication1_MVC_.Controllers
             return View(updateModel);
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Add_Student()
         {
            return View();
         }
        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update_Student(int id, StudentRequestDto studentDto)
         {
             if (!ModelState.IsValid) return View(studentDto);
@@ -54,6 +61,7 @@ namespace WebApplication1_MVC_.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add_Student(StudentRequestDto studentDto)
         {
             if (!ModelState.IsValid) return View(studentDto);
@@ -63,6 +71,7 @@ namespace WebApplication1_MVC_.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete_Student(int id)
         {
             var student = await _studentService.GetStudentByIdAsync(id);

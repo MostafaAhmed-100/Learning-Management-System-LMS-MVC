@@ -1,16 +1,37 @@
 ﻿@model InstructorRequestDTO
-<div>
-    <form asp-action="Add_InstructorAdd_Instructor" method="post">
-        <label>Name</label>
-        <input asp-for="InstructorName" class="form-control" />
-        <label>Email</label>
-        <input asp-for="InstructorEmail" class="form-control" />
-        <label>Bio</label>
-        <input asp-for="InstructorBio" class="form-control" />
-        <label>Phone</label>
-        <input asp-for="InstructorPhone" class="form-control" />
-        <label>Password</label>
-        <input asp-for="InstructorPassword" class="form-control" />
-        <input type="submit" value="Add" class="btn btn-primary" />
-    </form>
+<div class="card col-md-6 mx-auto mt-4 shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">إضافة بيانات المحاضر</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Add_Instructor" method="post">
+            <div class="mb-3">
+                <label class="form-label fw-bold">الاسم بالكامل</label>
+                <input asp-for="InstructorName" class="form-control rounded-3" />
+                <span asp-validation-for="InstructorName" class="text-danger small"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">البريد الإلكتروني</label>
+                    <input asp-for="InstructorEmail" class="form-control rounded-3" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">رقم الهاتف</label>
+                    <input asp-for="InstructorPhone" class="form-control rounded-3" />
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">النبذة التعريفية (Bio)</label>
+                <textarea asp-for="InstructorBio" class="form-control rounded-3" rows="3"></textarea>
+            </div>
+            <div class="mb-4">
+                <label class="form-label fw-bold">كلمة المرور</label>
+                <input asp-for="InstructorPassword" type="password" class="form-control rounded-3" />
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary rounded-pill py-2 shadow-sm">إضافة المحاضر</button>
+                <a asp-action="All_Instructors" class="btn btn-light rounded-pill">إلغاء</a>
+            </div>
+        </form>
+    </div>
 </div>

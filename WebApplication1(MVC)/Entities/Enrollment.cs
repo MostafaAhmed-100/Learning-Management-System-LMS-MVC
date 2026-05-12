@@ -13,5 +13,7 @@ namespace WebApplication1_MVC_.Entitys
         public Student Student { get; set; }
 
         public DateTime EnrollmentDate { get; set; }
+
+        public string? IdentityUserId { get; set; }
     }
 }

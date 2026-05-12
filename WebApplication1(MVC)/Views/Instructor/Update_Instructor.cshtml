@@ -1,22 +1,49 @@
 ﻿@model InstructorRequestDTO
-<div>
-    <form asp-action="Update_Instructor" method="post">
-        <input type="hidden" name="id" value="@ViewContext.RouteData.Values["id"]" />
-        <label asp-for="InstructorName"></label>
-        <input asp-for="InstructorName" class="form-control" />
-        <span asp-validation-for="InstructorName" class="text-danger"></span>
-        <label asp-for="InstructorEmail"></label>
-        <input asp-for="InstructorEmail" class="form-control" />
-        <span asp-validation-for="InstructorEmail" class="text-danger"></span>
-        <label asp-for="InstructorPhone"></label>
-        <input asp-for="InstructorPhone" class="form-control" />
-        <span asp-validation-for="InstructorPhone" class="text-danger"></span>
-        <label asp-for="InstructorBio"></label>
-        <input asp-for="InstructorBio" class="form-control" />
-        <span asp-validation-for="InstructorBio" class="text-danger"></span>
-        <label asp-for="InstructorPassword"></label>
-        <input asp-for="InstructorPassword" class="form-control" />
-        <span asp-validation-for="InstructorPassword" class="text-danger"></span>
-        <input type="submit" value="Update" class="btn btn-primary" />
-    </form>
+
+<div class="container mt-4">
+    <div class="card col-md-6 mx-auto shadow-lg border-0 rounded-4">
+        <div class="card-header bg-primary text-white py-3 rounded-top-4">
+            <h4 class="mb-0 text-center"><i class="bi bi-pencil-square me-2"></i>تعديل بيانات المحاضر</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Update_Instructor" method="post">
+                <input type="hidden" name="id" value="@ViewContext.RouteData.Values["id"]" />
+                
+                <div class="mb-3">
+                    <label class="form-label fw-bold">الاسم</label>
+                    <input asp-for="InstructorName" class="form-control rounded-3" />
+                    <span asp-validation-for="InstructorName" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">البريد الإلكتروني</label>
+                        <input asp-for="InstructorEmail" class="form-control rounded-3" />
+                        <span asp-validation-for="InstructorEmail" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">الهاتف</label>
+                        <input asp-for="InstructorPhone" class="form-control rounded-3" />
+                        <span asp-validation-for="InstructorPhone" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">النبذة التعريفية</label>
+                    <textarea asp-for="InstructorBio" class="form-control rounded-3" rows="3"></textarea>
+                    <span asp-validation-for="InstructorBio" class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">تغيير كلمة المرور</label>
+                    <input asp-for="InstructorPassword" type="password" class="form-control rounded-3" placeholder="اتركها فارغة إذا لم تكن تريد تغييرها" />
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow">حفظ التغييرات</button>
+                    <a asp-action="All_Instructors" class="btn btn-light rounded-pill">إلغاء</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
